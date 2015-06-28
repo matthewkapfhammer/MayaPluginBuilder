@@ -1,1 +1,0 @@
-I eat {{ binary_test }}
