@@ -1,5 +1,5 @@
 import os
-
+from .cookiecutter.main import cookiecutter
 import sublime
 import sublime_plugin
 
@@ -40,7 +40,7 @@ def checkName(pluginName):
 
 def makePluginFolder():
     # Cookie Cutter stuff
-    pass
+    cookiecutter('https://github.com/audreyr/cookiecutter-pypackage.git')
 
 
 def makeTempScript(scriptType):
