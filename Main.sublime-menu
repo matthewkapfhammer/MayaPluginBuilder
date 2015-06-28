@@ -1,0 +1,18 @@
+[
+{
+    "id": "tools",
+    "children":
+    [{
+        "id": "mayaplugin",
+        "caption": "Maya Plugins",
+        "children":
+        [
+            {"caption": "Create Command", "command": "maya_make_comm"},
+            {"caption": "Create Python Plug-in", "command": "maya_make_python_plugin"},
+            {"caption": "Create C++ Plug-in", "command": "maya_make_cpp_plugin"},
+            {"caption": "-", "id":"maya_separator"},
+            {"caption": "Create Python Script", "command": "maya_make_python_script"},
+            {"caption": "Create MEL Script", "command": "maya_make_mel_script"}
+        ] 
+    }]
+}]
