@@ -117,3 +117,5 @@ class MayaMakeCppPlugin(sublime_plugin.TextCommand):
             sublime.error_message(ILLEGALCHARSMSG)
             self.view.window().show_input_panel(CPPPLUGINLABEL, pluginName,
                                                 self.pluginCheck, None, None)
+
+
