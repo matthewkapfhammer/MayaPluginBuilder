@@ -1,5 +1,5 @@
 import os
-from .cookiecutter.main import cookiecutter
+
 import sublime
 import sublime_plugin
 
@@ -31,6 +31,8 @@ else:
     SCRIPTSPATH = os.path.join(USER_DIR, 'Library', 'Preferences', 'Autodesk',
                                'maya', 'scripts')
 
+def window():
+    return sublime.active_window()
 
 def checkName(pluginName):
     if [c for c in pluginName if c in ILLEGALCHARS]:
@@ -38,9 +40,9 @@ def checkName(pluginName):
     return True
 
 
-def makePluginFolder():
-    # Cookie Cutter stuff
-    cookiecutter('https://github.com/audreyr/cookiecutter-pypackage.git')
+class makePluginFolder(sublime_plugin.WindowCommand):
+    def run(self):
+        pass
 
 
 def makeTempScript(scriptType):
@@ -59,6 +61,15 @@ def makeTempScript(scriptType):
         elif scriptType == 'mel':
             # Cookie Cutter
             pass
+
+class MakePythonPlugin:
+    def __init__(self, pluginFolder):
+        self.main()
+
+    def main(self):
+        # read from json file
+        pass
+
 
 
 class MayaMakeComm(sublime_plugin.TextCommand):
@@ -88,7 +99,11 @@ class MayaMakePythonPlugin(sublime_plugin.TextCommand):
             pluginFolder = os.path.join(SCRIPTSPATH, pluginName)
             if not os.path.isdir(pluginFolder):
                 os.mkdir(pluginFolder)
-            # continue here
+                MakePythonPlugin(pluginFolder)
+            else:
+                sublime.error_message(FOLDEREXISTSMSG)
+                self.view.window().show_input_panel(PYPLUGINLABEL, pluginName,
+                                                    self.pluginCheck, None, None)
         else:
             sublime.error_message(ILLEGALCHARSMSG)
             self.view.window().show_input_panel(PYPLUGINLABEL, pluginName,
@@ -109,10 +124,12 @@ class MayaMakeCppPlugin(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.window().show_input_panel(CPPPLUGINLABEL, CPPPLUGINNAMESTR,
                                             self.pluginCheck, None, None)
-
+        
     def pluginCheck(self, pluginName):
         if checkName(pluginName):
             makePluginFolder(pluginName)
+            
+            
         else:
             sublime.error_message(ILLEGALCHARSMSG)
             self.view.window().show_input_panel(CPPPLUGINLABEL, pluginName,
